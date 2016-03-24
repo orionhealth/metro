@@ -1,0 +1,8 @@
+**/target
+ws-rx/wsrm-impl/PersistentRmJunitTestDb/
+ws-rx/wsrm-impl/derby.log
+ws-sx/wssx-impl/golden.mh
+ws-sx/wssx-impl/golden.msg
+ws-sx/wssx-impl/recvd.mh
+ws-sx/wssx-impl/recvd.msg
+
