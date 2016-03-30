@@ -18,7 +18,8 @@
  * Copyright 2005 Sun Microsystems, Inc. All rights reserved.
  */
 /*
- * $Id: DOMCanonicalizationMethod.java 647272 2008-04-11 19:22:21Z mullan $
+ * Modified by Orchestral Developments Ltd to apply the change at 
+ * http://svn.apache.org/viewvc?view=revision&revision=1493772.
  */
 package org.jcp.xml.dsig.internal.dom;
 
@@ -47,6 +48,9 @@ public class DOMCanonicalizationMethod extends DOMTransform
     public DOMCanonicalizationMethod(TransformService spi)
 	throws InvalidAlgorithmParameterException {
 	super(spi);
+        if (!(spi instanceof ApacheCanonicalizer) && !isC14Nalg(spi.getAlgorithm())) {
+            throw new InvalidAlgorithmParameterException("Illegal CanonicalizationMethod");
+        } 
     }
 
     /**
@@ -59,6 +63,9 @@ public class DOMCanonicalizationMethod extends DOMTransform
     public DOMCanonicalizationMethod(Element cmElem, XMLCryptoContext context,
 	Provider provider) throws MarshalException {
 	super(cmElem, context, provider);
+        if (!(spi instanceof ApacheCanonicalizer) && !isC14Nalg(spi.getAlgorithm())) {
+            throw new MarshalException("Illegal CanonicalizationMethod");
+        } 
     }
 
     /**
@@ -102,4 +109,13 @@ public class DOMCanonicalizationMethod extends DOMTransform
 	assert false : "hashCode not designed";
 	return 42;
     }
+    
+    private static boolean isC14Nalg(String alg) {
+        return alg.equals(CanonicalizationMethod.INCLUSIVE) 
+            || alg.equals(CanonicalizationMethod.INCLUSIVE_WITH_COMMENTS) 
+            || alg.equals(CanonicalizationMethod.EXCLUSIVE) 
+            || alg.equals(CanonicalizationMethod.EXCLUSIVE_WITH_COMMENTS) 
+            || alg.equals(DOMCanonicalXMLC14N11Method.C14N_11) 
+            || alg.equals(DOMCanonicalXMLC14N11Method.C14N_11_WITH_COMMENTS);
+    } 
 }
