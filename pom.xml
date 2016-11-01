@@ -510,6 +510,10 @@
             <url>http://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
+            <id>artifactory</id>
+            <url>http://artifactory/artifactory/libs-release-local/</url>
+        </repository>
+        <repository>
             <id>releases.java.net</id>
             <url>https://maven.java.net/content/repositories/releases/</url>
             <layout>default</layout>
