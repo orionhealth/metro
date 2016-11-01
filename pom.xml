@@ -492,10 +492,15 @@
     </profiles>
 
     <distributionManagement>
+        <repository>
+            <id>artifactory</id>
+            <name>orion-health-releases</name>
+            <url>http://artifactory/artifactory/libs-release-local</url>
+        </repository>
         <snapshotRepository>
-            <id>jvnet-nexus-snapshots</id>
-            <uniqueVersion>false</uniqueVersion>
-            <url>https://maven.java.net/content/repositories/snapshots/</url>
+            <id>artifactory</id>
+            <name>orion-health-snapshots</name>
+            <url>http://artifactory/artifactory/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
     
