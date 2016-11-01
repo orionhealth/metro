@@ -362,6 +362,20 @@
         </profile>
     </profiles>
     
+    <distributionManagement>
+        <repository>
+            <id>artifactory</id>
+            <name>orion-health-releases</name>
+            <url>http://artifactory/artifactory/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory</id>
+            <name>orion-health-snapshots</name>
+            <url>http://artifactory/artifactory/libs-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    
     <properties>
         <glassfish.version>3.2-b06</glassfish.version>
         <grizzly.version>1.9.36</grizzly.version>
