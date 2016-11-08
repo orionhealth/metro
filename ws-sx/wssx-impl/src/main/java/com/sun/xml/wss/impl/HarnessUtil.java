@@ -116,13 +116,9 @@ public abstract class HarnessUtil {
             } else if (PolicyTypeUtil.samlTokenPolicy(authPolicy)) {                
                 AuthenticationTokenPolicy.SAMLAssertionBinding samlPolicy =
                     (AuthenticationTokenPolicy.SAMLAssertionBinding)authPolicy;
-                try{
-                    if (samlPolicy.getAssertionType() == 
-                        AuthenticationTokenPolicy.SAMLAssertionBinding.SV_ASSERTION) {
-                        AuthenticationTokenFilter.processSamlToken(fpContext);
-                    }
-                }catch(Exception ex){
-                   log.log(Level.WARNING, ex.getMessage());
+                if (samlPolicy.getAssertionType() == 
+                    AuthenticationTokenPolicy.SAMLAssertionBinding.SV_ASSERTION) {
+                    AuthenticationTokenFilter.processSamlToken(fpContext);
                 }
             }else if (PolicyTypeUtil.x509CertificateBinding(authPolicy)) {
                 AuthenticationTokenFilter.processX509Token(fpContext);
