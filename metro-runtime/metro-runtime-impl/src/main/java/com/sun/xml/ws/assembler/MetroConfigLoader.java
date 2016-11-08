@@ -61,6 +61,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Level;
+import javax.xml.bind.JAXBException;
 
 /**
  * This class is responsible for locating and loading Metro configuration files
@@ -77,6 +78,8 @@ import java.util.logging.Level;
 class MetroConfigLoader {
 
     private static final Logger LOGGER = Logger.getLogger(MetroConfigLoader.class);
+    
+    private static JAXBContext jAXBContext;
 
     private MetroConfigName defaultTubesConfigNames;
 
@@ -245,12 +248,18 @@ class MetroConfigLoader {
         }
         return null;
     }
+    
+    private static JAXBContext getJAXBContext() throws JAXBException {
+        if (jAXBContext == null) {
+            jAXBContext  = JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
+        }
+        return jAXBContext;
+    }
 
     private static MetroConfig loadMetroConfig(@NotNull URL resourceUrl) {
         MetroConfig result = null;
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(MetroConfig.class.getPackage().getName());
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            Unmarshaller unmarshaller = MetroConfigLoader.getJAXBContext().createUnmarshaller();
             final JAXBElement<MetroConfig> configElement = unmarshaller.unmarshal(XMLInputFactory.newInstance().createXMLStreamReader(resourceUrl.openStream()), MetroConfig.class);
             result = configElement.getValue();
         } catch (Exception e) {
